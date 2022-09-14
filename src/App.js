@@ -1,6 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 
 class App extends Component {
+  const userData = {
+    login: 'dzik',
+    password: 'okon',
+  }
+
+  const [user, setUser] = useState({name: "", login: "e"});
+  const [error, setError] = useState("");
+
+  const Login = details => {
+    console.log(details);
+  }
+
+  const Logout = details => {
+    console.log("logout");
+  }
 
   constructor(props) {
     super(props);
@@ -22,6 +37,11 @@ class App extends Component {
   }
 
   render() {
+    (user.login != "") ? (
+      <div className="welcome">
+        <h2>Welcome {user.name}
+      </div>
+    )
 
     var { isLoaded, items } = this.state;
 
