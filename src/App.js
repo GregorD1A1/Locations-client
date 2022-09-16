@@ -1,63 +1,58 @@
 import React, { useState, Component } from 'react';
+import LoginForm from './components/LoginForm';
+import MainForm from './components/MainForm';
 
-class App extends Component {
-  const userData = {
-    login: 'dzik',
-    password: 'okon',
-  }
-
-  const [user, setUser] = useState({name: "", login: "e"});
+function App() {
   const [error, setError] = useState("");
+  const [page, setPage] = useState("login");
+  const [token, setToken] = useState("");
 
-  const Login = details => {
-    console.log(details);
+  async function Login(details) {
+    // encoding algorithm
+    let base64 = require('base-64');
+    // sending request
+    let response = await fetch("http://192.168.0.34:5000/login", {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Basic ' + base64.encode(details.login + ":" + details.password),
+      },
+    }).then(response => response.json());
+    if (response.response == "")
+      {
+        setToken(response.token);
+        // redirect
+        setPage("main");
+      }
+    else {
+      setError(response.response);
+    }
+  };
+
+  async function RequestLocationsData()
+  {
+    let isLoaded = false;
+    let response = await fetch("http://192.168.0.34:5000/location",
+    {
+      method: 'GET',
+      headers: {'x-access-token': token,},
+    }).then(response => response.json()).then(isLoaded=true);
+    console.log({response, isLoaded})
+    return {response, isLoaded};
   }
 
   const Logout = details => {
     console.log("logout");
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      isLoaded: false,
-    }
-  }
-
-  componentDidMount()  {
-    fetch('https://v2.jokeapi.dev/joke/Any')
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          items: json,
-          isLoaded: true,
-        })
-      });
-  }
-
-  render() {
-    (user.login != "") ? (
-      <div className="welcome">
-        <h2>Welcome {user.name}
-      </div>
-    )
-
-    var { isLoaded, items } = this.state;
-
-    if (!isLoaded){
-      return <div>Loading data</div>;
-    }
-    else {
-      return (
-        <div className="App">
-          Start: {items.setup}
-          {items.delivery}
-        </div>
-    );
-    }
-
-  };
+  return (
+    <div className="App">
+    {(page == "login") ?
+    (<LoginForm Login={Login} error={error}/>)
+    : (page == "main") ?
+    (<MainForm token={token}/>)
+    : <div></div>}
+    </div>
+  );
 }
 
 export default App;
