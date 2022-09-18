@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function LoginForm( {Login, error} )
+function RegistrationForm( {Login, error} )
 {
   const [details, setDetails] = useState({login: "", password: ""})
 
@@ -9,11 +9,45 @@ function LoginForm( {Login, error} )
     Login(details);
   }
 
+  async function signup()
+  {
+    let result = await fetch("http://192.168.0.34:5000/signup", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+      },
+      body: JSON.stringify({
+        "login": "uzytkownik2",
+        "password": "byk123"
+      })
+    });
+    result = await result.json();
+    console.log(result);
+  }
+
+  function SignUp(e)
+  {
+    e.preventDefault(); {/*czy potrzebne?*/}
+    useEffect(() => {
+      axios.post("http://192.168.0.34:5000/signup", body: JSON.stringify({
+        "login": "uzytkownik2",
+        "password": "byk123"
+      }))
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }, [])
+  }
+
   return(
     <div>
-    <form onSubmit={submitHandler}>
+    <form onSubmit={SignUp}>
       <div className="form-inner">
-        <h2>Login</h2>
+        <h2>SignUp</h2>
         {(error != "") ? (<div className="error">{error}</div>) : ""}
         <div className="form-group">
           <label htmlFor="login">Login:</label>
@@ -27,9 +61,9 @@ function LoginForm( {Login, error} )
             {...details, password: e.target.value})} placeholder="password"/>
         </div>
       </div>
-      <button type="submit" value="LOGIN">Submit</button>
+      <button type="submit">Submit</button>
     </form>
-    <button>SignUp</button>
+    <button>Login</button>
     </div>
   )
 }

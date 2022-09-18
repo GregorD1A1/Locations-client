@@ -3,6 +3,7 @@ import axios from 'axios'
 
 function AddLocalization(token, ip)
 {
+  console.log(ip);
   useEffect(() => {
     axios.post("http://192.168.0.34:5000/location/" + ip, {headers: {'x-access-token': token,}})
       .then(res => {
@@ -16,6 +17,7 @@ function AddLocalization(token, ip)
 
 function MainForm({token})
 {
+  const [ip, setIp] = useState("");
   const [locationData, setLocationData] = useState({2: {"ip": "", "ip_type": "", "continent": "","city": "", "country": "", "zip_code": "", "latitude": 0, "longitude": 0}});
 
   useEffect(() => {
@@ -46,9 +48,10 @@ function MainForm({token})
           {location.continent} {location.country} {location.city} {location.zip_code} {location.latitude} {location.longitude}
         </div>
       ))}
-      <form>
+      <form onSubmit={AddLocalization token=token ip=ip}>
         <label for="localizationInput">New location: </label>
-        <input type="text" id="localizationInput" placeholder="write ip here"/>
+        <input type="text" id="localizationInput" placeholder="write ip here"
+          onChange={e => setIp({e.target.value})}/>
         <button type="submit">Add</button>
       </form>
     </div>
