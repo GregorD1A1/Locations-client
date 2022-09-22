@@ -1,54 +1,37 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+import './App.css'
 
-function RegistrationForm( {Login, error} )
+function RegistrationForm( {loginRedirect} )
 {
+  const [message, setMessage] = useState("");
   const [details, setDetails] = useState({login: "", password: ""})
 
-  const submitHandler = e => {
-    e.preventDefault();
-    Login(details);
-  }
-
-  async function signup()
-  {
-    let result = await fetch("http://192.168.0.34:5000/signup", {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "*/*",
-      },
-      body: JSON.stringify({
-        "login": "uzytkownik2",
-        "password": "byk123"
-      })
-    });
-    result = await result.json();
-    console.log(result);
-  }
+  // set background color (much easer here than with css)
+  document.body.style = 'background: antiquewhite;';
 
   function SignUp(e)
   {
-    e.preventDefault(); {/*czy potrzebne?*/}
-    useEffect(() => {
-      axios.post("http://192.168.0.34:5000/signup", body: JSON.stringify({
-        "login": "uzytkownik2",
-        "password": "byk123"
-      }))
-        .then(res => {
-          console.log(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }, [])
+    e.preventDefault();
+    axios.post("https://api-sofomo.herokuapp.com/signup", {
+      "login": details.login,
+      "password": details.password,
+    })
+      .then(res => {
+        setMessage(res.data.response);
+      })
+      .catch(err => {
+        setMessage(err.response.data.response);
+      })
   }
 
+
   return(
-    <div>
+    <div className="formLoginSignup">
     <form onSubmit={SignUp}>
-      <div className="form-inner">
+      <div>
         <h2>SignUp</h2>
-        {(error != "") ? (<div className="error">{error}</div>) : ""}
+        <div>{message}</div>
         <div className="form-group">
           <label htmlFor="login">Login:</label>
           {/* Name is defaultvalue, written in the field */}
@@ -63,9 +46,9 @@ function RegistrationForm( {Login, error} )
       </div>
       <button type="submit">Submit</button>
     </form>
-    <button>Login</button>
+    <button onClick={loginRedirect}>Login</button>
     </div>
   )
 }
 
-export default LoginForm;
+export default RegistrationForm;

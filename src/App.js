@@ -1,55 +1,35 @@
 import React, { useState, Component } from 'react';
 import LoginForm from './components/LoginForm';
+import RegistrationForm from './components/RegistrationForm';
 import MainForm from './components/MainForm';
 
 function App() {
-  const [error, setError] = useState("");
   const [page, setPage] = useState("login");
   const [token, setToken] = useState("");
 
-  async function Login(details) {
-    // encoding algorithm
-    let base64 = require('base-64');
-    // sending request
-    let response = await fetch("http://192.168.0.34:5000/login", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Basic ' + base64.encode(details.login + ":" + details.password),
-      },
-    }).then(response => response.json());
-    if (response.response == "")
-      {
-        setToken(response.token);
-        // redirect
-        setPage("main");
-      }
-    else {
-      setError(response.response);
-    }
-  };
-
-  async function RequestLocationsData()
+  const signupRedirect = () =>
   {
-    let isLoaded = false;
-    let response = await fetch("http://192.168.0.34:5000/location",
-    {
-      method: 'GET',
-      headers: {'x-access-token': token,},
-    }).then(response => response.json()).then(isLoaded=true);
-    console.log({response, isLoaded})
-    return {response, isLoaded};
+    setPage("signUp");
   }
 
-  const Logout = details => {
-    console.log("logout");
+  const loginRedirect = () =>
+  {
+    setPage("login");
+  }
+
+  const mainPageRedirect = () =>
+  {
+    setPage("main");
   }
 
   return (
     <div className="App">
     {(page == "login") ?
-    (<LoginForm Login={Login} error={error}/>)
+    (<LoginForm setToken={setToken} mainPageRedirect={mainPageRedirect} signupRedirect={signupRedirect}/>)
     : (page == "main") ?
-    (<MainForm token={token}/>)
+    (<MainForm token={token} loginRedirect={loginRedirect}/>)
+    : (page == "signUp") ?
+    (<RegistrationForm loginRedirect={loginRedirect}/>)
     : <div></div>}
     </div>
   );
