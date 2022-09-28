@@ -47,11 +47,13 @@ function MainForm({token, loginRedirect})
 
   async function AddLocation(token, ip)
   {
+    console.log('probuje dodać');
     let response = await fetch("https://api-sofomo.herokuapp.com/location/" + ip,
     {
       method: 'POST',
       headers: {'x-access-token': token,},
     }).then(response => response.json());
+    console.log(response);
     setMessage(response.response);
     getLocations();
   }
