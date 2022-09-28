@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+Client:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Client allows you to quickly and pleasantly view and edit data using a graphical interface. Developed in the React environment. The source code can be found here:
 
-## Available Scripts
+https://github.com/GregorD1A1/Locations-client
 
-In the project directory, you can run:
+To launch the client application, download the container with it by typing the command in the console:
 
-### `npm start`
+docker pull gregord1/locations_client
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+then run with the command:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+docker run -p 3000:3000 gregord1/locations_client
 
-### `npm test`
+By typing "localhost:3000" in the browser window, we will find a running application. First we will be shown a login window: 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If we do not yet have a user account created, use the "SignUp" button to switch to the registration window:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Where to create a new user by entering a login and password. Then use the "Login" button to switch back to the login window, where we log in using the login and password entered during registration.
+The main window of the program will appear, where we can see all the location data, contained in the database. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To add a new location to the list, enter its IP address in the "New location:" window at the bottom and add with the "Add" button. Note: as the number of queries in the free version of ipstack is limited, after intensive work and testing there are about 20 queries left for September, so use this function sparingly.
+We can delete records by clicking on the trash stamp to the right of the record. We can also sort the records according to different parameters, using the checkmark on the top bar of the page, next to the parameter. 
+When the session is over, you can log out using the "LogOut" button.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Translated with www.DeepL.com/Translator (free version)
