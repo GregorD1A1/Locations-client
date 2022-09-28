@@ -4,7 +4,7 @@ Client allows you to quickly and pleasantly view and edit data using a graphical
 
 https://github.com/GregorD1A1/Locations-client
 
-To launch the client application, download the container with it by typing the command in the console:
+To launch the client application, download the container by typing the command in the console:
 
 ***docker pull gregord1/locations_client***
 
